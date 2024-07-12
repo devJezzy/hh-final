@@ -5,15 +5,7 @@ import ChatInput from "./ChatInput";
 
 const ChatSection: React.FC = () => {
   const [messages, setMessages] = useState([
-    { type: "assistant", content: "How can I help you today!" },
-    {
-      type: "user",
-      content: "Hi there! I'm planning for a personalised trip and need some information about a tourist place. Can you help me?",
-    },
-    {
-      type: "assistant",
-      content: "Of course! I'd be happy to help. Which tourist place are you interested in?",
-    },
+    { type: "assistant", content: "Hi ! How can I help you today!" }
   ]);
 
   const [inputValue, setInputValue] = useState("");
