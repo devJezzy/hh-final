@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import getChatBotResponse from "@/utils/geminiChat";
 import ChatMessage from "./ChatMessage";
-import ChatInput from "./ChatInput";
 
 const ChatSection: React.FC = () => {
   const [messages, setMessages] = useState([
@@ -9,6 +8,18 @@ const ChatSection: React.FC = () => {
   ]);
 
   const [inputValue, setInputValue] = useState("");
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -33,12 +44,13 @@ const ChatSection: React.FC = () => {
   };
 
   const appendResponse = (text: string, newMessages: any[]) => {
-    setMessages([...newMessages, { type: "assistant", content: text }]);
+    const formattedBotResponse = text.replace(/\n/g, "<br />");
+    setMessages([...newMessages, { type: "assistant", content: formattedBotResponse }]);
   };
 
   return (
-    <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full">
-      <div className="flex flex-col p-6 text-base leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden mb-5 h-full">
+    <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full your-style">
+      <div className="flex flex-col p-6 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden mb-5 h-full">
         <div className="overflow-hidden-vertical">
           {messages.map((message, index) => (
             <div
@@ -51,9 +63,10 @@ const ChatSection: React.FC = () => {
               />
             </div>
           ))}
+          <div ref={messagesEndRef}></div>
         </div>
         <div className="">
-          <form className="flex gap-5 justify-between px-5 py-3.5 mt-5 text-xl bg-gray-200 rounded-md text-zinc-500 text-opacity-60 max-md:flex-wrap max-md:pl-5 max-md:mt-10 max-md:max-w-full" onSubmit={handleFormSubmit}>
+          <form className="flex gap-5 justify-between px-5 py-3.5 mt-5 bg-gray-200 rounded-md text-zinc-500 text-opacity-60 max-md:flex-wrap max-md:pl-5 max-md:mt-10 max-md:max-w-full" onSubmit={handleFormSubmit}>
             <label htmlFor="chatInput" className="sr-only">
               Type your message
             </label>

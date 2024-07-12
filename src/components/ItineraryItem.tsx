@@ -25,10 +25,10 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
               <h3 className="text-2xl font-medium tracking-tight text-black">
                 {title}
               </h3>
-              <p className="mt-3 text-base tracking-tight text-zinc-600">
+              <p className="mt-3 tracking-tight text-zinc-600">
                 {time}
               </p>
-              <p className="mt-3.5 text-lg tracking-tight text-neutral-400">
+              <p className="mt-3.5 tracking-tight text-neutral-400">
                 {activity}
               </p>
             </div>
