@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.overflow-hidden-vertical {
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    height: 100%; /* Adjust as needed */
+  }
+  .almond-green {
+    background-color: rgba(179, 193, 117, 0.2); /* For background color */
+  }
+  .light-gray {
+    background-color: #EBEBEB
+  }
+    
+    
