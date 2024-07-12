@@ -21,7 +21,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
       <div className="flex-auto p-4 light-gray rounded-xl max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow mt-1.5 max-md:mt-10">
+            <div className="flex flex-col grow max-md:mt-10">
               <h3 className="text-2xl font-medium tracking-tight text-black">
                 {title}
               </h3>

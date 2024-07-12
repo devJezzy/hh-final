@@ -34,16 +34,19 @@ const ItinerarySection: React.FC = () => {
   const days = Object.keys(itinerary);
 
   return (
-<div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full">
-  <div className="flex flex-col p-6 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden mb-5 h-full">
-    <div className="flex gap-2 self-start tracking-tight text-[#9AAC47]">
-      {days.length === 0 ? (
+<div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full overflow-hidden h-full">
+  <div className="flex flex-col p-6 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden h-full">
+  {days.length === 0  ? (
+    <div className="relative top-1/2">
         <Blob />
+        </div>
       ) : (
+    <div className="flex gap-2 self-start tracking-tight text-[#9AAC47]">
+      {
         days.map((day, index) => (
           <button
             key={index}
-            className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 ${
+            className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 max-md:py-0 ${
               selectedDay === parseInt(day) ? "text-white bg-[#9AAC47]" : ""
             }`}
             onClick={() => setSelectedDay(parseInt(day))}
@@ -51,8 +54,9 @@ const ItinerarySection: React.FC = () => {
             Day {day}
           </button>
         ))
-      )}
+      }
     </div>
+      )}
     <div className="plans-container overflow-hidden-vertical">
       {itinerary[selectedDay.toString()] &&
         itinerary[selectedDay.toString()].map((item, index) => (

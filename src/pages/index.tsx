@@ -23,7 +23,7 @@ const TripPlanner: React.FC = () => {
             max-lg:py-8 max-md:py-6 max-sm:py-4 max-xs:py-2">
       {isMobile ? <ChatBot /> : null}
       <Header />
-      <div className="mt-11 max-md:mt-10 max-md:max-w-full flex gap-5 max-md:flex-col max-md:gap-0 flex-grow overflow-hidden text-base max-md:text-sm max-sm:text-xs">
+      <div className="mt-11 max-md:mt-0 max-md:max-w-full flex gap-5 max-md:flex-col max-md:gap-0 flex-grow overflow-hidden text-base max-md:text-sm max-sm:text-xs">
         {!isMobile ? <ChatSection /> : null}
         <ItinerarySection />
       </div>

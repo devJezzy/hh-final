@@ -9,10 +9,10 @@
 
 
 .overflow-hidden-vertical {
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Disable horizontal scrolling */
-    height: 100%; /* Adjust as needed */
-  }
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: 100% !important;
+}
   .almond-green {
     background-color: rgba(179, 193, 117, 0.2); /* For background color */
   }

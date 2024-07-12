@@ -49,8 +49,8 @@ const ChatSection: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full your-style">
-      <div className="flex flex-col p-6 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden mb-5 h-full">
+    <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full">
+      <div className="flex flex-col p-6 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden h-full">
         <div className="overflow-hidden-vertical">
           {messages.map((message, index) => (
             <div
