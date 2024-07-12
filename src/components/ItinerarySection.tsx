@@ -35,7 +35,7 @@ const ItinerarySection: React.FC = () => {
 
   return (
 <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full overflow-hidden h-full">
-  <div className="flex flex-col p-6 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:px-5 max-md:mt-5 max-md:max-w-full overflow-hidden h-full">
+  <div className="flex flex-col p-6 max-md:p-2 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:mt-0 max-md:max-w-full overflow-hidden h-full">
   {days.length === 0  ? (
     <div className="relative top-1/2">
         <Blob />
@@ -57,7 +57,7 @@ const ItinerarySection: React.FC = () => {
       }
     </div>
       )}
-    <div className="plans-container overflow-hidden-vertical">
+    <div className="plans-container overflow-hidden-vertical mt-2">
       {itinerary[selectedDay.toString()] &&
         itinerary[selectedDay.toString()].map((item, index) => (
           <ItineraryItem key={index} {...item} />

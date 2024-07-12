@@ -14,17 +14,17 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
   imageSrc,
 }) => {
   return (
-    <div className="flex gap-4 mt-4 max-md:flex-wrap max-md:max-w-full">
-      <div className="flex flex-col justify-center items-center self-start px-2 mt-4 w-6 h-6 rounded-full bg-zinc-300">
+    <div className="flex gap-4 max-md:gap-2 mt-4 max-md:max-w-full">
+      <div className="flex flex-col justify-center items-center self-start px-2 mt-4 max-md:w-5 max-md:h-5 w-6 h-6 rounded-full bg-zinc-300">
         <div className="shrink-0 w-2.5 h-2.5 bg-[#9AAC47] rounded-full" />
       </div>
       <div className="flex-auto p-4 light-gray rounded-xl max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow max-md:mt-10">
-              <h3 className="text-2xl font-medium tracking-tight text-black">
+            <div className="flex flex-col grow">
+              <p className="text-2xl max-md:text-xl font-medium tracking-tight text-black">
                 {title}
-              </h3>
+              </p>
               <p className="mt-3 tracking-tight text-zinc-600">
                 {time}
               </p>
@@ -39,7 +39,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
                 loading="lazy"
                 src={imageSrc}
                 alt={title}
-                className="grow shrink-0 max-w-full aspect-[1.04] w-[110px] max-md:mt-10 rounded-xl"
+                className="grow shrink-0 max-w-full aspect-[1.04] w-[110px] max-md:mt-2 rounded-xl"
               />
             </div>
           )}

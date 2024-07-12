@@ -1,115 +1,112 @@
+import React, { useState, useEffect, useRef } from "react";
 import getChatBotResponse from "@/utils/geminiChat";
-import React, { useState, useRef, useEffect } from "react";
+import ChatMessage from "./ChatMessage";
 
-const ChatBot: React.FC = () => {
+const ChatSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { text: "Hello! How can I help you?", sender: "bot" },
-  ]);
-  const [inputValue, setInputValue] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
+  const [messages, setMessages] = useState([
+    { type: "assistant", content: "Hi! How can I help you today?" }
+  ]);
 
-  const handleSendMessage = async () => {
-    if (inputValue.trim() !== "") {
-      const newMessages = [...messages, { text: inputValue, sender: "user" }];
-      setMessages(newMessages);
-      setInputValue("");
+  const [inputValue, setInputValue] = useState("");
 
-      let Response = await getChatBotResponse(inputValue);
-      let text = '';
-      for await (const chunk of (await Response).stream) {
-        const chunkText = chunk.text();
-        console.log(chunkText);
-        text += chunkText;
-        generateBotResponse(text, newMessages);
-      }
-      // console.log(Response);
-      // generateBotResponse(Response, newMessages);
-    }
-  };
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const generateBotResponse = (
-    botResponse: string,
-    updatedMessages: { text: string; sender: string }[]
-  ) => {
-    // Replace line breaks with <br />
-    const formattedBotResponse = botResponse.replace(/\n/g, "<br />");
-
-    setMessages([
-      ...updatedMessages,
-      { text: formattedBotResponse, sender: "bot" },
-    ]);
-  };
-
-  useEffect(() => {
+  const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
   }, [messages]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleFormSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (inputValue.trim() === "") return;
+
+    // Add user message to the message list
+    const newMessages = [...messages, { type: "user", content: inputValue }];
+    setMessages(newMessages);
+    setInputValue("");
+
+    // Call the chatbot API
+    let response = await getChatBotResponse(inputValue);
+    let text = '';
+    for await (const chunk of (await response).stream) {
+      const chunkText = chunk.text();
+      text += chunkText;
+      appendResponse(text, newMessages);
+    }
+  };
+
+  const appendResponse = (text: string, newMessages: any[]) => {
+    const formattedBotResponse = text.replace(/\n/g, "<br />");
+    setMessages([...newMessages, { type: "assistant", content: formattedBotResponse }]);
+  };
 
   return (
     <div>
-      <div
-        className="fixed bottom-6 right-6 w-12 h-11 cursor-pointer"
-        onClick={toggleChat}
-      >
-        <img src="/travel-bot.png" alt="Chat Bot" className="w-full h-full" />
-      </div>
-      {isOpen && (
-        <div className="text-xs fixed bottom-24 right-6 max-sm:w-[70%] max-sm:h-[325px] w-80 h-96 bg-white shadow-lg flex flex-col rounded-lg bg-opacity-0 backdrop-blur-2xl">
-          <div className="flex justify-between items-center p-4 bg-purple-500 text-white rounded-t-lg">
-            <span>Chat with us!</span>
-            <button onClick={toggleChat} className="text-white">
-              X
-            </button>
-          </div>
-          <div className="flex-1 p-4 overflow-y-auto">
+    <div
+      className="fixed bottom-6 right-6 w-12 h-11 cursor-pointer"
+      onClick={toggleChat}
+    >
+      <img src="/travel-bot.png" alt="Chat Bot" className="w-full h-full" />
+    </div>
+    {isOpen && (
+      <div className="text-xs fixed bottom-24 right-6 max-sm:w-[70%] max-sm:h-[325px] w-80 h-96 bg-white shadow-lg flex flex-col rounded-lg bg-opacity-0 backdrop-blur-2xl">
+        <div className="bg-white border rounded-lg shadow-md overflow-hidden flex flex-col h-full">
+          <div className="flex flex-col h-full p-4 bg-gray-100 overflow-y-auto">
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`mb-2 ${
-                  message.sender === "user" ? "text-right" : "text-left"
-                }`}
+                className={`flex ${message.type === "user" ? "justify-start" : "justify-end"} mb-2`}
               >
-                <span
-                  className={`inline-block px-2 py-1 rounded-lßg ${
-                    message.sender === "user" ? "bg-blue-200" : "bg-gray-200"
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: message.text }}
-                ></span>
+                <ChatMessage
+                  type={message.type}
+                  content={message.content}
+                />
               </div>
             ))}
-            <div ref={messagesEndRef} />
+            <div ref={messagesEndRef}></div>
           </div>
-
-          <div className="p-4 border-t">
+          <form className="flex items-center p-2 bg-gray-200" onSubmit={handleFormSubmit}>
+            <label htmlFor="chatInput" className="sr-only">
+              Type your message
+            </label>
             <input
               type="text"
-              placeholder="Type a message..."
-              className="w-full p-2 border rounded-lg"
+              id="chatInput"
+              placeholder="Type Here"
+              className="bg-transparent border-none outline-none flex-grow"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSendMessage();
-                }
-              }}
+              onChange={handleInputChange}
             />
-            <button
-              className="mt-2 w-full bg-purple-500 text-white p-2 rounded-lg hover:bg-purple-500"
-              onClick={handleSendMessage}
-            >
-              Send
+            <button type="submit" aria-label="Send message">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/b420a9b4d5d9a10678adf4752aa4a128fe4a8aac67857693b299bfb21ad70060?apiKey=79050f2e54364c9b998b189296d8e734&"
+                alt="Send"
+                className="shrink-0 self-start w-5 aspect-square"
+              />
             </button>
-          </div>
+          </form>
         </div>
-      )}
-    </div>
+      </div>
+    )}
+  </div>
+  
   );
 };
 
-export default ChatBot;
+export default ChatSection;

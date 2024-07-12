@@ -27,7 +27,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ type, content }) => {
           className="shrink-0 my-auto w-5 aspect-square"
         />
       )}
-      <div dangerouslySetInnerHTML={{ __html: content}} className={isAssistant ? "max-md:max-w-full" : ""}></div>
+      <div dangerouslySetInnerHTML={{ __html: content }} className={isAssistant ? "max-md:max-w-full" : ""}></div>
     </div>
   );
 };
