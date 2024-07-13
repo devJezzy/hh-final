@@ -45,9 +45,9 @@ const SearchComponent: React.FC = () => {
   };
   
   return (
-    <main className="flex flex-col items-center min-h-screen">
+    <main className="flex flex-col items-center min-h-screen text-base max-md:text-sm max-sm:text-xs">
       <Header />
-      <h2 className="mt-28 text-2xl font-medium tracking-tighter text-black max-md:mt-10">
+      <h2 className="mt-28 text-2xl max-md:text-lg tracking-tighter text-black max-md:mt-10">
       How many days do you want to go?
       </h2>
       <form onSubmit={handleSubmit} className="flex mt-10 border rounded-full">
@@ -64,7 +64,7 @@ const SearchComponent: React.FC = () => {
         />
       </form>
       <div className="mt-auto w-full flex" style={{ height: '10%', borderTop: '1px solid #CDCDCD', backgroundColor: 'white', boxShadow: 'rgb(165 165 165 / 10%) 0px -3px 0px' }}>
-        <button onClick={handleSubmit} className="my-20 ml-[55%] px-16 py-4 text-xl tracking-tight rounded-full text-white whitespace-nowrap bg-black shadow-xl max-md:px-5 max-md:mt-10">
+        <button onClick={handleSubmit} className="my-[2%] ml-[55%] px-16 py-4 tracking-tight rounded-full text-white whitespace-nowrap bg-black shadow-xl max-md:px-10">
           Next
         </button>
       </div>
