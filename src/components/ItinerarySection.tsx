@@ -3,6 +3,7 @@ import ItineraryItem from "./ItineraryItem";
 import getResponse from "@/utils/gemini";
 import searchImages from "@/utils/getImage";
 import Blob from "./Blob";
+import MapComponent from "@/components/GoogleMaps";
 
 const ItinerarySection: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState(1);
@@ -40,6 +41,21 @@ const ItinerarySection: React.FC = () => {
 
   const days = Object.keys(itinerary);
 
+  const getAllTitles = () => {
+    const titles: string[] = [];
+    for (const key in itinerary) {
+      if (itinerary.hasOwnProperty(key)) {
+        const items = itinerary[key];
+        for (const item of items) {
+          titles.push(item.title);
+        }
+      }
+    }
+    return titles;
+  };
+
+  const selectedDayTitles = itinerary[selectedDay.toString()]?.map(item => item.title) || [];
+
   return (
     <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full overflow-hidden h-full">
       <div className="flex flex-col p-6 max-md:p-2 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:mt-0 max-md:max-w-full overflow-hidden h-full">
@@ -48,24 +64,29 @@ const ItinerarySection: React.FC = () => {
             <Blob />
           </div>
         ) : (
-          <div className="flex gap-2 self-start tracking-tight text-[#9AAC47]">
-            {days.map((day, index) => (
-              <button
-                key={index}
-                className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 max-md:py-0 ${
-                  selectedDay === parseInt(day) ? "text-white bg-[#9AAC47]" : ""
-                }`}
-                onClick={() => setSelectedDay(parseInt(day))}
-              >
-                Day {day}
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="h-1/3 rounded-xl overflow-hidden">
+              <MapComponent addresses={getAllTitles()} />
+            </div>
+            <div className="flex gap-2 self-start tracking-tight text-[#9AAC47] my-4 max-md:my-2">
+              {days.map((day, index) => (
+                <button
+                  key={index}
+                  className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 max-md:py-0 ${selectedDay === parseInt(day) ? "text-white bg-[#9AAC47]" : ""}`}
+                  onClick={() => setSelectedDay(parseInt(day))}
+                >
+                  Day {day}
+                </button>
+              ))}
+            </div>
+          </>
         )}
-        <div className="plans-container overflow-hidden-vertical mt-2">
+        <div className="plans-container overflow-hidden-vertical">
           {itinerary[selectedDay.toString()] &&
             itinerary[selectedDay.toString()].map((item, index) => (
+              <div className={index === 0 ? 'mt-0' : 'mt-4'}>
               <ItineraryItem key={index} {...item} />
+              </div>
             ))}
         </div>
       </div>

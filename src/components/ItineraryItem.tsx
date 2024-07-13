@@ -21,7 +21,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
     <a
       href={mapUrl}
       target="_blank"
-      className="flex gap-4 max-md:gap-2 mt-4 max-md:max-w-full"
+      className="flex gap-4 max-md:gap-2 max-md:max-w-full"
     >
       <div className="flex flex-col justify-center items-center self-start px-2 mt-4 max-md:w-5 max-md:h-5 w-6 h-6 rounded-full bg-zinc-300">
         <div className="shrink-0 w-2.5 h-2.5 bg-[#9AAC47] rounded-full" />
