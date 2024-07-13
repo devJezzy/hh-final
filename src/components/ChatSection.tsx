@@ -6,8 +6,8 @@ const ChatSection: React.FC = () => {
   const [messages, setMessages] = useState([
     { type: "assistant", content: "Hi ! How can I help you today!" },
   ]);
-
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State to track loading
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -28,18 +28,27 @@ const ChatSection: React.FC = () => {
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    // Disable submit button while loading
+    setIsLoading(true);
+
     // Add user message to the message list
     const newMessages = [...messages, { type: "user", content: inputValue }];
     setMessages(newMessages);
     setInputValue("");
 
-    // Call the chatbot API
-    let response = await getChatBotResponse(inputValue);
-    let text = "";
-    for await (const chunk of (await response).stream) {
-      const chunkText = chunk.text();
-      text += chunkText;
-      appendResponse(text, newMessages);
+    appendResponse("...", newMessages);
+
+    try {
+      // Call the chatbot API
+      let response = await getChatBotResponse(inputValue);
+      let text = "";
+      for await (const chunk of (await response).stream) {
+        const chunkText = chunk.text();
+        text += chunkText;
+        appendResponse(text, newMessages);
+      }
+    } finally {
+      setIsLoading(false); // Enable submit button after response
     }
   };
 
@@ -81,13 +90,32 @@ const ChatSection: React.FC = () => {
               value={inputValue}
               onChange={handleInputChange}
             />
-            <button type="submit" aria-label="Send message">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/b420a9b4d5d9a10678adf4752aa4a128fe4a8aac67857693b299bfb21ad70060?apiKey=79050f2e54364c9b998b189296d8e734&"
-                alt=""
-                className="shrink-0 self-start w-5 aspect-square"
-              />
+            <button type="submit" aria-label="Send message" disabled={isLoading}>
+              {isLoading ? (
+                <span className="animate-spin">
+                  <svg
+                    className="w-5 h-5 mr-3 -ml-1 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <circle cx="12" cy="12" r="10" stroke-width="4" />
+                    <path
+                      className="opacity-75"
+                      fill="#fff"
+                      d="M12 6v6l4 2V8l-4-2z"
+                    />
+                  </svg>
+                </span>
+              ) : (
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b420a9b4d5d9a10678adf4752aa4a128fe4a8aac67857693b299bfb21ad70060?apiKey=79050f2e54364c9b998b189296d8e734&"
+                  alt=""
+                  className="shrink-0 self-start w-5 aspect-square"
+                />
+              )}
             </button>
           </form>
         </div>
