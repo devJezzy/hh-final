@@ -183,17 +183,17 @@ const parts: Part[] = [
   { text: "output: I am not have idea about who is invented me." },
 ];
 
-export default async function getChatBotResponse(query: string): Promise<any> {
-  const chatSession = await model.startChat({
-    generationConfig,
-    history: [
-      {
-        role: "user",
-        parts,
-      },
-    ],
-  });
+const chatSession = model.startChat({
+  generationConfig,
+  history: [
+    {
+      role: "user",
+      parts,
+    },
+  ],
+});
 
+export default async function getChatBotResponse(query: string): Promise<any> {
   const response = chatSession.sendMessageStream(query);
   return response;
 }

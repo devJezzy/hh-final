@@ -19,9 +19,11 @@ const ItinerarySection: React.FC = () => {
   }>({});
 
   const getTripPlan = async () => {
+    console.log(style,destination,duration)
     const res = await getResponse(
       `${style} trip to ${destination} for ${duration} days`
     );
+    
     const trip_plan = JSON.parse(res);
 
     for (const key in trip_plan) {
@@ -57,9 +59,6 @@ const ItinerarySection: React.FC = () => {
     }
     return titles;
   };
-
-  const selectedDayTitles =
-    itinerary[selectedDay.toString()]?.map((item) => item.title) || [];
 
   return (
     <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full overflow-hidden h-full">

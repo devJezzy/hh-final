@@ -4,7 +4,6 @@ import Select from 'react-dropdown-select';
 import { FaSearch } from 'react-icons/fa';
 import { GetTripProps } from '@/context/TripContext';
 import router from 'next/router';
-import { GiConsoleController } from 'react-icons/gi';
 
 
 interface Option {
@@ -14,33 +13,30 @@ interface Option {
 
 const SearchComponent: React.FC = () => {
   const options: Option[] = [
-    { label: "1 day", value: 1 },
-    { label: "2 days", value: 2 },
-    { label: "3 days", value: 3 },
-    { label: "4 days", value: 4 },
-    { label: "5 days", value: 5 },
-    { label: "6 days", value: 6 },
-    { label: "7 days", value: 7 },
+    { label: "Family-Friendly", value: 1 },
+    { label: "Romantic for Couples", value: 2 },
+    { label: "Adventure and Outdoor", value: 3 },
+    { label: "Cultural and Historical", value: 4 },
   ];
-  
   const [selectedValues, setSelectedValues] = useState<Option[]>([]);
 
-  const {setDuration } = GetTripProps();
+  const {setStyle } = GetTripProps();
 
   const handleSubmit = () => {
     if (!selectedValues) {
       return;
     }
-    const duration = String(selectedValues[0].value)
-    setDuration(duration);
+    const duration = String(selectedValues[0].label)
+    console.log(duration)
+    setStyle(duration);
     router.push({
-      pathname: "/destination",
+      pathname: "/tourPlan",
     });
   };
   
   
   const handleChange = (values: Option[]) => {
-    console.log(values[0].value)
+    console.log(values)
     setSelectedValues(values);
   };
   
@@ -54,7 +50,7 @@ const SearchComponent: React.FC = () => {
       <FaSearch className="self-center mx-4"/>
         <Select
           name="travelDays"
-          placeholder="Travel Days"
+          placeholder="Travel Style"
           options={options}
           values={selectedValues}
           onChange={handleChange}

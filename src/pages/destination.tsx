@@ -4,7 +4,6 @@ import Select from 'react-dropdown-select';
 import { FaSearch } from 'react-icons/fa';
 import { GetTripProps } from '@/context/TripContext';
 import router from 'next/router';
-import { GiConsoleController } from 'react-icons/gi';
 
 
 interface Option {
@@ -14,27 +13,43 @@ interface Option {
 
 const SearchComponent: React.FC = () => {
   const options: Option[] = [
-    { label: "1 day", value: 1 },
-    { label: "2 days", value: 2 },
-    { label: "3 days", value: 3 },
-    { label: "4 days", value: 4 },
-    { label: "5 days", value: 5 },
-    { label: "6 days", value: 6 },
-    { label: "7 days", value: 7 },
+    { label: "Kerala", value: 1 },
+    { label: "Goa", value: 2 },
+    { label: "Himachal", value: 3 },
+    { label: "Andaman", value: 4 },
+    { label: "Sikkim", value: 5 },
+    { label: "Mysore", value: 6 },
+    { label: "Kodaikanal", value: 7 },
+    { label: "Ooty", value: 8 },
+    { label: "Coorg", value: 9 },
+    { label: "Yercaud", value: 10 },
+    { label: "Delhi", value: 11 },
+    { label: "International Destinations", value: 12 },
+    { label: "Thailand", value: 13 },
+    { label: "Singapore", value: 14 },
+    { label: "Srilanka", value: 15 },
+    { label: "Europe", value: 16 },
+    { label: "Mauritius", value: 17 },
+    { label: "Maldives", value: 18 },
+    { label: "Malaysia", value: 1 },
+    { label: "dubai", value: 19 },
+    { label: "Bali", value: 20 },
+    { label: "Vietnam", value: 21 },
   ];
-  
   const [selectedValues, setSelectedValues] = useState<Option[]>([]);
 
-  const {setDuration } = GetTripProps();
+  const {setDestination } = GetTripProps();
 
   const handleSubmit = () => {
     if (!selectedValues) {
       return;
     }
-    const duration = String(selectedValues[0].value)
-    setDuration(duration);
+    const duration = String(selectedValues[0].label)
+    console.log(duration)
+    
+    setDestination(duration);
     router.push({
-      pathname: "/destination",
+      pathname: "/style",
     });
   };
   
@@ -43,7 +58,6 @@ const SearchComponent: React.FC = () => {
     console.log(values[0].value)
     setSelectedValues(values);
   };
-  
   return (
     <main className="flex flex-col items-center min-h-screen">
       <Header />
@@ -54,7 +68,7 @@ const SearchComponent: React.FC = () => {
       <FaSearch className="self-center mx-4"/>
         <Select
           name="travelDays"
-          placeholder="Travel Days"
+          placeholder="Travel Destination"
           options={options}
           values={selectedValues}
           onChange={handleChange}
