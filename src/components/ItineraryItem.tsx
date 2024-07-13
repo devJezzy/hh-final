@@ -13,8 +13,16 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
   activity,
   imageSrc,
 }) => {
+  const mapUrl = `https://www.google.com/maps/search/${title.replace(
+    / /g,
+    "+"
+  )}`;
   return (
-    <div className="flex gap-4 max-md:gap-2 mt-4 max-md:max-w-full">
+    <a
+      href={mapUrl}
+      target="_blank"
+      className="flex gap-4 max-md:gap-2 mt-4 max-md:max-w-full"
+    >
       <div className="flex flex-col justify-center items-center self-start px-2 mt-4 max-md:w-5 max-md:h-5 w-6 h-6 rounded-full bg-zinc-300">
         <div className="shrink-0 w-2.5 h-2.5 bg-[#9AAC47] rounded-full" />
       </div>
@@ -25,9 +33,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
               <p className="text-2xl max-md:text-xl font-medium tracking-tight text-black">
                 {title}
               </p>
-              <p className="mt-3 tracking-tight text-zinc-600">
-                {time}
-              </p>
+              <p className="mt-3 tracking-tight text-zinc-600">{time}</p>
               <p className="mt-3.5 tracking-tight text-neutral-400">
                 {activity}
               </p>
@@ -45,7 +51,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -4,7 +4,7 @@ import ChatMessage from "./ChatMessage";
 
 const ChatSection: React.FC = () => {
   const [messages, setMessages] = useState([
-    { type: "assistant", content: "Hi ! How can I help you today!" }
+    { type: "assistant", content: "Hi ! How can I help you today!" },
   ]);
 
   const [inputValue, setInputValue] = useState("");
@@ -35,7 +35,7 @@ const ChatSection: React.FC = () => {
 
     // Call the chatbot API
     let response = await getChatBotResponse(inputValue);
-    let text = '';
+    let text = "";
     for await (const chunk of (await response).stream) {
       const chunkText = chunk.text();
       text += chunkText;
@@ -56,18 +56,20 @@ const ChatSection: React.FC = () => {
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`flex ${message.type === "user" ? "justify-start" : "justify-start"}`}
+              className={`flex ${
+                message.type === "user" ? "justify-start" : "justify-start"
+              }`}
             >
-              <ChatMessage
-                type={message.type}
-                content={message.content}
-              />
+              <ChatMessage type={message.type} content={message.content} />
             </div>
           ))}
           <div ref={messagesEndRef}></div>
         </div>
         <div className="">
-          <form className="flex gap-5 justify-between px-5 py-3.5 mt-5 bg-gray-200 rounded-md text-zinc-500 text-opacity-60 max-md:flex-wrap max-md:pl-5 max-md:mt-10 max-md:max-w-full" onSubmit={handleFormSubmit}>
+          <form
+            className="flex gap-5 justify-between px-5 py-3.5 mt-5 bg-gray-200 rounded-md text-zinc-500 text-opacity-60 max-md:flex-wrap max-md:pl-5 max-md:mt-10 max-md:max-w-full"
+            onSubmit={handleFormSubmit}
+          >
             <label htmlFor="chatInput" className="sr-only">
               Type your message
             </label>

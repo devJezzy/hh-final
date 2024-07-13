@@ -3,22 +3,18 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Celias';
+  font-family: "Celias";
   src: url("../../public/Celias.ttf");
 }
-
 
 .overflow-hidden-vertical {
   overflow-y: auto !important;
   overflow-x: hidden !important;
   height: 100% !important;
 }
-  .almond-green {
-    background-color: rgba(179, 193, 117, 0.2);
-  }
-  .light-gray {
-    background-color: #EBEBEB
-  }
-    
-
-    
+.almond-green {
+  background-color: rgba(179, 193, 117, 0.2);
+}
+.light-gray {
+  background-color: #ebebeb;
+}

@@ -1,6 +1,4 @@
-import {
-  GoogleGenerativeAI
-} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = "AIzaSyAv52B3DiFk-tcljQH0vijcN8oTPZqOxsc";
 // const apiKey = "";
@@ -37,5 +35,5 @@ export default async function getResponse(query: string): Promise<any> {
   });
 
   const result = await chatSession.sendMessage(query);
-  return result.response.text()
+  return result.response.text();
 }
