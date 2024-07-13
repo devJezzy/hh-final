@@ -4,11 +4,10 @@ import getResponse from "@/utils/gemini";
 import searchImages from "@/utils/getImage";
 import Blob from "./Blob";
 import MapComponent from "@/components/GoogleMaps";
-import { GetTripProps } from '@/context/TripContext';
+import { GetTripProps } from "@/context/TripContext";
 
 const ItinerarySection: React.FC = () => {
-
-  const { style, destination,duration } = GetTripProps();
+  const { style, destination, duration } = GetTripProps();
   const [selectedDay, setSelectedDay] = useState(1);
   const [itinerary, setItinerary] = useState<{
     [key: string]: {
@@ -20,7 +19,9 @@ const ItinerarySection: React.FC = () => {
   }>({});
 
   const getTripPlan = async () => {
-    const res = await getResponse(`${style} trip to ${destination} for ${duration} days`);
+    const res = await getResponse(
+      `${style} trip to ${destination} for ${duration} days`
+    );
     const trip_plan = JSON.parse(res);
 
     for (const key in trip_plan) {
@@ -57,7 +58,8 @@ const ItinerarySection: React.FC = () => {
     return titles;
   };
 
-  const selectedDayTitles = itinerary[selectedDay.toString()]?.map(item => item.title) || [];
+  const selectedDayTitles =
+    itinerary[selectedDay.toString()]?.map((item) => item.title) || [];
 
   return (
     <div className="flex flex-col w-1/2 max-md:ml-0 max-md:w-full overflow-hidden h-full">
@@ -75,7 +77,11 @@ const ItinerarySection: React.FC = () => {
               {days.map((day, index) => (
                 <button
                   key={index}
-                  className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 max-md:py-0 ${selectedDay === parseInt(day) ? "text-white bg-[#9AAC47]" : ""}`}
+                  className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 max-md:py-0 ${
+                    selectedDay === parseInt(day)
+                      ? "text-white bg-[#9AAC47]"
+                      : ""
+                  }`}
                   onClick={() => setSelectedDay(parseInt(day))}
                 >
                   Day {day}
@@ -87,8 +93,8 @@ const ItinerarySection: React.FC = () => {
         <div className="plans-container overflow-hidden-vertical">
           {itinerary[selectedDay.toString()] &&
             itinerary[selectedDay.toString()].map((item, index) => (
-              <div className={index === 0 ? 'mt-0' : 'mt-4'}>
-              <ItineraryItem key={index} {...item} />
+              <div key={index} className={index === 0 ? "mt-0" : "mt-4"}>
+                <ItineraryItem {...item} />
               </div>
             ))}
         </div>
