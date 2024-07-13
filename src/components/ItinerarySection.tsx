@@ -80,7 +80,7 @@ const ItinerarySection: React.FC = () => {
                   className={`justify-center px-7 py-2 rounded-3xl border border-[#9AAC47] border-solid max-md:px-5 max-md:py-0 ${
                     selectedDay === parseInt(day)
                       ? "text-white bg-[#9AAC47]"
-                      : ""
+                      : "hover:bg-[#B3C17533]"
                   }`}
                   onClick={() => setSelectedDay(parseInt(day))}
                 >

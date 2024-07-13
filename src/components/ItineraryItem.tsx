@@ -26,9 +26,9 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
       className="flex gap-4 max-md:gap-2 max-md:max-w-full"
     >
       <div className="flex flex-col justify-center items-center self-start px-2 mt-4 max-md:w-5 max-md:h-5 w-6 h-6 rounded-full bg-zinc-300">
-        <div className="shrink-0 w-2.5 h-2.5 bg-[#9AAC47] rounded-full" />
+        <div className="shrink-0 w-2.5 h-2.5 bg-[#9AAC47]  rounded-full" />
       </div>
-      <div className="flex-auto p-4 light-gray rounded-xl max-md:max-w-full">
+      <div className="flex-auto p-4 light-gray rounded-xl max-md:max-w-full hover:shadow-md border">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow">
