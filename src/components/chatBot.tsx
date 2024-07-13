@@ -51,8 +51,9 @@ const ChatSection: React.FC = () => {
   };
 
   const appendResponse = (text: string, newMessages: any[]) => {
-    const formattedBotResponse = text.replace(/\n/g, "<br />");
-    setMessages([...newMessages, { type: "assistant", content: formattedBotResponse }]);
+    text = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+    text = text.replace(/\n/g, "<br />");
+    setMessages([...newMessages, { type: "assistant", content: text }]);
   };
 
   return (
@@ -97,7 +98,7 @@ const ChatSection: React.FC = () => {
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/b420a9b4d5d9a10678adf4752aa4a128fe4a8aac67857693b299bfb21ad70060?apiKey=79050f2e54364c9b998b189296d8e734&"
                 alt="Send"
-                className="shrink-0 self-start w-5 aspect-square"
+                className="shrink-0 self-start w-4 aspect-square"
               />
             </button>
           </form>

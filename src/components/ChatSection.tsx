@@ -44,8 +44,9 @@ const ChatSection: React.FC = () => {
   };
 
   const appendResponse = (text: string, newMessages: any[]) => {
-    const formattedBotResponse = text.replace(/\n/g, "<br />");
-    setMessages([...newMessages, { type: "assistant", content: formattedBotResponse }]);
+    text = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+    text = text.replace(/\n/g, "<br />");
+    setMessages([...newMessages, { type: "assistant", content: text }]);
   };
 
   return (
