@@ -4,8 +4,11 @@ import getResponse from "@/utils/gemini";
 import searchImages from "@/utils/getImage";
 import Blob from "./Blob";
 import MapComponent from "@/components/GoogleMaps";
+import { GetTripProps } from '@/context/TripContext';
 
 const ItinerarySection: React.FC = () => {
+
+  const { style, destination,duration } = GetTripProps();
   const [selectedDay, setSelectedDay] = useState(1);
   const [itinerary, setItinerary] = useState<{
     [key: string]: {
@@ -17,7 +20,7 @@ const ItinerarySection: React.FC = () => {
   }>({});
 
   const getTripPlan = async () => {
-    const res = await getResponse("2 days relaxation trip in chennai");
+    const res = await getResponse(`${style} trip to ${destination} for ${duration} days`);
     const trip_plan = JSON.parse(res);
 
     for (const key in trip_plan) {
@@ -47,7 +50,7 @@ const ItinerarySection: React.FC = () => {
       if (itinerary.hasOwnProperty(key)) {
         const items = itinerary[key];
         for (const item of items) {
-          titles.push(item.title);
+          titles.push(item.title + "in" + destination);
         }
       }
     }

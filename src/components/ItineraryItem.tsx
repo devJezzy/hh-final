@@ -1,4 +1,5 @@
 import React from "react";
+import { GetTripProps } from '@/context/TripContext';
 
 interface ItineraryItemProps {
   title: string;
@@ -13,10 +14,11 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
   activity,
   imageSrc,
 }) => {
+  const { destination } = GetTripProps();
   const mapUrl = `https://www.google.com/maps/search/${title.replace(
     / /g,
     "+"
-  )}`;
+  )}+in+${destination}`;
   return (
     <a
       href={mapUrl}

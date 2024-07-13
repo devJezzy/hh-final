@@ -1,13 +1,13 @@
 // pages/_app.tsx
 import type { AppProps } from "next/app";
-// import { PlanProvider } from "../context/PlanContext";
+import { TripProvider } from "../context/TripContext";
 import "@/styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    // <PlanProvider>
-    <Component {...pageProps} />
-    // </PlanProvider>
+    <TripProvider>
+      <Component {...pageProps} />
+    </TripProvider>
   );
 }
 
