@@ -32,7 +32,7 @@ const SearchComponent: React.FC = () => {
     router.push({
       pathname: "/TripPlan",
       query: { /* any query params you might want to pass */ },
-    }, '/trip-plan'); // Specify your custom URL path here
+    }, '/TripPlan'); // Specify your custom URL path here
   };
 
   useEffect(() => {

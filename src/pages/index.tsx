@@ -4,8 +4,7 @@ import Select from 'react-dropdown-select';
 import { FaSearch } from 'react-icons/fa';
 import { GetTripProps } from '@/context/TripContext';
 import router from 'next/router';
-import { GiConsoleController } from 'react-icons/gi';
-
+import { CgArrowLongRight } from "react-icons/cg";
 
 interface Option {
   label: string;

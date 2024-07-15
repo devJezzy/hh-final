@@ -1,5 +1,6 @@
 import React from "react";
 import { GetTripProps } from '@/context/TripContext';
+import { CgArrowLongRight } from "react-icons/cg";
 
 interface ItineraryItemProps {
   title: string;
@@ -19,6 +20,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
     / /g,
     "+"
   )}+in+${destination}`;
+  const findHotelsURL =`https://happyholidays.in/package/?pa_destination=${destination}`
   return (
     <a
       href={mapUrl}
@@ -50,7 +52,15 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
                 className="grow shrink-0 max-w-full aspect-[1.04] w-[110px] max-md:mt-2 rounded-xl"
               />
             </div>
-          )}
+          )
+        }
+          { (time.toLowerCase() == "bedtime") && (
+            <a
+            href={findHotelsURL} target="_blank" className="flex rounded-md bg-[#9AAC47] text-white px-4 py-2 items-center gap-2 self-center ml-auto max-md:ml-0">
+            Find Hotels <CgArrowLongRight/> 
+        </a>
+          )
+          }
         </div>
       </div>
     </a>

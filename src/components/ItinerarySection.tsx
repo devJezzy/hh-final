@@ -31,9 +31,11 @@ const ItinerarySection: React.FC = () => {
         const items = trip_plan[key];
         for (let i = 0; i < items.length; i++) {
           const title = items[i].title;
+          if(items[i].time.toLowerCase() != "bedtime"){
           const result = await searchImages(title);
           const imageSrc = result[0]?.largeImageURL || null;
           items[i].imageSrc = imageSrc;
+          }
         }
       }
     }
