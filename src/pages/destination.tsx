@@ -1,10 +1,9 @@
-import React, { FormEvent, useState } from 'react';
-import Header from '@/components/InputHeader';
-import Select from 'react-dropdown-select';
-import { FaSearch } from 'react-icons/fa';
-import { GetTripProps } from '@/context/TripContext';
-import router from 'next/router';
-
+import React, { FormEvent, useEffect, useState } from "react";
+import Header from "@/components/InputHeader";
+import Select from "react-dropdown-select";
+import { FaSearch } from "react-icons/fa";
+import { GetTripProps } from "@/context/TripContext";
+import router from "next/router";
 
 interface Option {
   label: string;
@@ -38,47 +37,65 @@ const SearchComponent: React.FC = () => {
   ];
   const [selectedValues, setSelectedValues] = useState<Option[]>([]);
 
-  const {setDestination } = GetTripProps();
+  const { duration, setDestination } = GetTripProps();
 
   const handleSubmit = () => {
     if (!selectedValues) {
       return;
     }
-    const duration = String(selectedValues[0].label)
-    console.log(duration)
-    
+    const duration = String(selectedValues[0].label);
+    console.log(duration);
+
     setDestination(duration);
     router.push({
       pathname: "/style",
     });
   };
-  
-  
+
+  useEffect(() => {
+    if (!duration) {
+      router.push({
+        pathname: "/",
+      });
+    }
+  });
+
   const handleChange = (values: Option[]) => {
-    console.log(values[0].value)
+    console.log(values[0].value);
     setSelectedValues(values);
   };
   return (
     <main className="flex flex-col items-center min-h-screen text-base max-md:text-sm max-sm:text-xs">
-      <Header loaderWidth="66"/>
+      <Header loaderWidth="66" />
       <h2 className="mt-28 text-2xl max-md:text-lg tracking-tighter text-black max-md:mt-10">
-      Where do you want to go?
+        Where do you want to go?
       </h2>
       <form onSubmit={handleSubmit} className="flex mt-10 border rounded-full">
-      <FaSearch className="self-center mx-4"/>
+        <FaSearch className="self-center mx-4" />
         <Select
           name="travelDays"
           placeholder="Travel Destination"
           options={options}
           values={selectedValues}
           onChange={handleChange}
-          style={{ width : "300px" , border : "none"}} 
+          style={{ width: "300px", border: "none" }}
           color="gray"
           required
         />
       </form>
-      <div className="mt-auto w-full flex" style={{ height: '10%', borderTop: '1px solid #CDCDCD', backgroundColor: 'white', boxShadow: 'rgb(165 165 165 / 10%) 0px -3px 0px' }}>
-        <button onClick={handleSubmit} className="my-[2%] ml-[55%] px-16 py-4 tracking-tight rounded-full text-white whitespace-nowrap bg-black shadow-xl max-md:px-10">
+      <div
+        className="mt-auto w-full flex"
+        style={{
+          height: "10%",
+          borderTop: "1px solid #CDCDCD",
+          backgroundColor: "white",
+          boxShadow: "rgb(165 165 165 / 10%) 0px -3px 0px",
+        }}
+      >
+        <button
+          onClick={handleSubmit}
+          className="my-[2%] ml-[55%] px-16 py-4 tracking-tight rounded-full text-white whitespace-nowrap bg-black shadow-xl max-md:px-10"
+        >
           Next
         </button>
       </div>

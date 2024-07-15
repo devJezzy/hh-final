@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Header from '@/components/InputHeader';
 import Select from 'react-dropdown-select';
 import { FaSearch } from 'react-icons/fa';
@@ -20,7 +20,7 @@ const SearchComponent: React.FC = () => {
   ];
   const [selectedValues, setSelectedValues] = useState<Option[]>([]);
 
-  const {setStyle } = GetTripProps();
+  const {setStyle,duration,destination } = GetTripProps();
 
   const handleSubmit = () => {
     if (!selectedValues) {
@@ -33,7 +33,14 @@ const SearchComponent: React.FC = () => {
       pathname: "/tourPlan",
     });
   };
-  
+
+  useEffect(() => {
+    if (!!duration || !destination) {
+      router.push({
+        pathname: "/",
+      });
+    }
+  });
   
   const handleChange = (values: Option[]) => {
     console.log(values)

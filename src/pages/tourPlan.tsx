@@ -5,16 +5,23 @@ import ItinerarySection from "@/components/ItinerarySection";
 import ChatBot from "@/components/chatBot";
 import Blob from "@/components/Blob";
 import { GetTripProps } from '@/context/TripContext';
+import router from 'next/router';
+
 
 const TripPlanner: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const { IsLoading } = GetTripProps();
+  const { IsLoading,duration,destination,style } = GetTripProps();
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 768);
   };
 
   useEffect(() => {
+    if (!duration || !destination || !style ){
+      router.push({
+        pathname: "/",
+      });
+    }
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
