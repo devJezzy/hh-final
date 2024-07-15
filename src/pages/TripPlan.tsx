@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import ChatSection from "@/components/ChatSection";
 import ItinerarySection from "@/components/ItinerarySection";
-import ChatBot from "@/components/ChatBot";
+import ChatBot from "@/components/chatBot";
 import Blob from "@/components/Blob";
 import { GetTripProps } from '@/context/TripContext';
 import router from 'next/router';
