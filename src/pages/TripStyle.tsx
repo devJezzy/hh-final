@@ -23,7 +23,7 @@ const SearchComponent: React.FC = () => {
   const {setStyle,duration,destination } = GetTripProps();
 
   const handleSubmit = () => {
-    if (!selectedValues) {
+    if (selectedValues.length==0) {
       return;
     }
     const duration = String(selectedValues[0].label)

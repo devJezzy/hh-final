@@ -27,9 +27,10 @@ const SearchComponent: React.FC = () => {
   const {setDuration } = GetTripProps();
 
   const handleSubmit = () => {
-    if (!selectedValues) {
+    if (selectedValues.length==0) {
       return;
     }
+    console.log(selectedValues)
     const duration = String(selectedValues[0].value)
     setDuration(duration);
     router.push({

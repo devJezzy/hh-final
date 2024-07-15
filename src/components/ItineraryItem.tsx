@@ -56,7 +56,7 @@ const ItineraryItem: React.FC<ItineraryItemProps> = ({
         }
           { (time.toLowerCase() == "bedtime") && (
             <a
-            href={findHotelsURL} target="_blank" className="flex rounded-md bg-[#9AAC47] text-white px-4 py-2 items-center gap-2 self-center ml-auto max-md:ml-0">
+            href={findHotelsURL} target="_blank" className="flex rounded-md bg-[#9AAC47] text-white px-4 py-2 items-center gap-2 self-center ml-auto max-md:ml-0 shrink-0">
             Find Hotels <CgArrowLongRight/> 
         </a>
           )
