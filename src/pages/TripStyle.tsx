@@ -30,12 +30,13 @@ const SearchComponent: React.FC = () => {
     console.log(duration)
     setStyle(duration);
     router.push({
-      pathname: "/tourPlan",
-    });
+      pathname: "/TripPlan",
+      query: { /* any query params you might want to pass */ },
+    }, '/trip-plan'); // Specify your custom URL path here
   };
 
   useEffect(() => {
-    if (!!duration || !destination) {
+    if (!duration || !destination) {
       router.push({
         pathname: "/",
       });

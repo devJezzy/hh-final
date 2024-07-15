@@ -34,8 +34,9 @@ const SearchComponent: React.FC = () => {
     const duration = String(selectedValues[0].value)
     setDuration(duration);
     router.push({
-      pathname: "/destination",
-    });
+      pathname: "/TripDestination",
+      query: { /* any query params you might want to pass */ },
+    }, '/destination');
   };
   
   

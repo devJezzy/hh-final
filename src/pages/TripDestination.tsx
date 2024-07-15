@@ -48,8 +48,9 @@ const SearchComponent: React.FC = () => {
 
     setDestination(duration);
     router.push({
-      pathname: "/style",
-    });
+      pathname: "/TripStyle",
+      query: { /* any query params you might want to pass */ },
+    }, '/trip-style');
   };
 
   useEffect(() => {
