@@ -7,6 +7,8 @@ interface TripPropsContext {
   setDestination: React.Dispatch<React.SetStateAction<string>>;
   style: string;
   setStyle: React.Dispatch<React.SetStateAction<string>>;
+  IsLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TripContext = createContext<TripPropsContext | undefined>(undefined);
@@ -27,10 +29,11 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
   const [duration, setDuration] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
   const [style, setStyle] = useState<string>("");
+  const [IsLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <TripContext.Provider
-      value={{ duration, setDuration ,destination, setDestination ,style, setStyle }}
+      value={{ duration, setDuration ,destination, setDestination ,style, setStyle,IsLoading, setIsLoading }}
     >
       {children}
     </TripContext.Provider>

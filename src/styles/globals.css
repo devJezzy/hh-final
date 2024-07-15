@@ -21,7 +21,6 @@
 
 .breaker-loader {
   background: linear-gradient(90deg, #74BDC3 0%, #AEC35B 100%);
-  width: 75%;
   height: 5px; 
 }
 .breaker {

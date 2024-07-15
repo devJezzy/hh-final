@@ -60,7 +60,7 @@ const SearchComponent: React.FC = () => {
   };
   return (
     <main className="flex flex-col items-center min-h-screen text-base max-md:text-sm max-sm:text-xs">
-      <Header />
+      <Header loaderWidth="66"/>
       <h2 className="mt-28 text-2xl max-md:text-lg tracking-tighter text-black max-md:mt-10">
       Where do you want to go?
       </h2>

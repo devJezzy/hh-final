@@ -1,7 +1,12 @@
 import React from "react";
 import Image from 'next/image';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  loaderWidth: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ loaderWidth }) => {
+  const loaderClass = `breaker-loader w-[${loaderWidth}%]`;
   return (
     <div className="w-full flex flex-col">
       <Image
@@ -12,8 +17,8 @@ const Header: React.FC = () => {
         priority
         className="py-10 self-center"
       />
-      <div className="breaker-loader" />
-      <div className="breaker" />
+      <div className="breaker-loader" style={{width:`${loaderWidth}%`}}/>
+      <div className="breaker"/>
     </div>
   );
 };

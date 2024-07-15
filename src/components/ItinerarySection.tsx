@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import ItineraryItem from "./ItineraryItem";
 import getResponse from "@/utils/gemini";
 import searchImages from "@/utils/getImage";
-import Blob from "./Blob";
 import MapComponent from "@/components/GoogleMaps";
 import { GetTripProps } from "@/context/TripContext";
 
 const ItinerarySection: React.FC = () => {
-  const { style, destination, duration } = GetTripProps();
+  const { style, destination, duration,setIsLoading } = GetTripProps();
   const [selectedDay, setSelectedDay] = useState(1);
   const [itinerary, setItinerary] = useState<{
     [key: string]: {
@@ -20,9 +19,12 @@ const ItinerarySection: React.FC = () => {
 
   const getTripPlan = async () => {
     console.log(style,destination,duration)
+    setIsLoading(true)
     const res = await getResponse(
       `${style} trip to ${destination} for ${duration} days`
     );
+    console.log(res)
+    setIsLoading(false)
     
     const trip_plan = JSON.parse(res);
 
@@ -65,7 +67,6 @@ const ItinerarySection: React.FC = () => {
       <div className="flex flex-col p-6 max-md:p-2 leading-7 text-black rounded-xl border border-solid border-[#9AAC47] border-opacity-30 max-md:mt-0 max-md:max-w-full overflow-hidden h-full">
         {days.length === 0 ? (
           <div className="relative top-1/2">
-            <Blob />
           </div>
         ) : (
           <>
