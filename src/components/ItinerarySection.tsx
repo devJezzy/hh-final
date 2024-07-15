@@ -24,8 +24,6 @@ const ItinerarySection: React.FC = () => {
       `${style} trip to ${destination} for ${duration} days`
     );
     console.log(res)
-    setIsLoading(false)
-    
     const trip_plan = JSON.parse(res);
 
     for (const key in trip_plan) {
@@ -41,6 +39,7 @@ const ItinerarySection: React.FC = () => {
     }
 
     setItinerary(trip_plan);
+    setIsLoading(false)
   };
 
   useEffect(() => {
